@@ -1,6 +1,7 @@
 mod quit_checker;
 use std::{
     io::{self, Write, stdout},
+    process::Command,
     thread,
     time::{Duration, Instant},
 };
@@ -44,6 +45,10 @@ fn main() {
                 )
                 .unwrap();
                 stdout.flush().unwrap();
+                Command::new("espeak")
+                    .arg(format!("\"Time's up!\""))
+                    .spawn()
+                    .expect("Failed to speak");
                 break;
             }
         };
