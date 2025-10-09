@@ -77,7 +77,10 @@ pub fn read_duration_from_user() -> Duration {
 
             let mut input = String::new();
             if io::stdin().read_line(&mut input).is_ok() {
-                if let Ok(value) = input.trim().parse::<u64>() {
+                let input = input.trim();
+                if input.is_empty() {
+                    return 0;
+                } else if let Ok(value) = input.parse::<u64>() {
                     return value;
                 } else {
                     println!("Please enter a valid number.");
